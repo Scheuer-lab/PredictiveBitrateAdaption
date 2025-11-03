@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebRTC - Enhanced Debugging</title>
+
+<style>
+  body {
+    margin: 0;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  .centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #video-chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+    background-color: black;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  video {
+    width: 45%;
+    height: auto;
+    background-color: #222;
+    border-radius: 8px;
+    max-height: 40vh;
+  }
+
+  .diagnostics-container {
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+    font-family: monospace;
+    width: 90%;
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+  }
+
+  .diagnostics-pre {
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .graph-container {
+    width: 100%;
+    height: 200px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin: 10px 0;
+  }
+
+  #rtt-graph {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .video-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stats-column {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .debug-section {
+    background-color: #2a1a2a;
+    border: 1px solid #553355;
+  }
+</style>
+  </head>
+
+  <body>
+    <div id="room-selection-container" class="centered">
+      <h1>WebRTC Video Conference - Enhanced Debug</h1>
+      <label>Enter the number of the room you want to connect</label>
+      <input id="room-input" type="text" />
+      <button id="connect-button">CONNECT</button>
+    </div>
+
+    <div id="video-chat-container" class="video-position" style="display: none;">
+      <div class="main-content">
+        <!-- Video Row -->
+        <div class="video-row">
+          <video id="local-video" autoplay="autoplay" muted="muted"></video>
+          <video id="remote-video" autoplay="autoplay"></video>
+        </div>
+
+        <!-- RTT Graph -->
+        <div class="diagnostics-container">
+          <h2>📈 Real-time RTT Graph</h2>
+          <div class="graph-container">
+            <canvas id="rtt-graph"></canvas>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stats-column">
+            <div class="diagnostics-container">
+              <h2>⚡ Live Metrics</h2>
+              <pre id="diagnostics-output" class="diagnostics-pre">Waiting for data...</pre>
+            </div>
+            
+            <div class="diagnostics-container">
+              <h2>🎯 Real-time Bitrate Monitor</h2>
+              <pre id="bitrate-output" class="diagnostics-pre">Waiting for data...</pre>
+            </div>
+          </div>
+          
+          <div class="stats-column">
+            <div class="diagnostics-container">
+              <h2>📊 Standard WebRTC Stats</h2>
+              <pre id="standard-diagnostics-output" class="diagnostics-pre">Waiting for data...</pre>
+            </div>
+
+            <div class="diagnostics-container">
+              <h2>🔧 Chrome GCC Internals</h2>
+              <pre id="chrome-gcc-output" class="diagnostics-pre">Waiting for Chrome GCC stats...</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deep Debugging Section -->
+        <div class="stats-row">
+          <div class="stats-column">
+            <div class="diagnostics-container debug-section">
+              <h2>🔍 Deep WebRTC Debug</h2>
+              <pre id="deep-debug-output" class="diagnostics-pre" style="font-size: 10px; max-height: 400px; overflow-y: auto;">Loading debug info...</pre>
+            </div>
+          </div>
+          
+          <div class="stats-column">
+            <div class="diagnostics-container debug-section">
+              <h2>🔧 Codec & Hardware Analysis</h2>
+              <pre id="codec-analysis-output" class="diagnostics-pre" style="font-size: 10px; max-height: 400px; overflow-y: auto;">Loading codec info...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="client.js"></script>
+  </body>
+</html>
