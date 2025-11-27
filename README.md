@@ -1,6 +1,7 @@
 # PredictiveBitrateAdaption
 
-webrtc-server: (based on https://github.com/borjanebbal/webrtc-node-app)
+# webrtc-server setup
+(based on https://github.com/borjanebbal/webrtc-node-app)
 
 0) Install node js
 
@@ -11,8 +12,8 @@ Install mkcert and create certificate for server:
 
 3) Create mkcert certificate: mkcert <host ip-address>
 
-4) run Server: node .\server.js
+4) run Server through terminal: node .\server.js
 
-5) Connect to server: Enter in browser the following url: https://<host-ip-address>:3000 
+5) Connect to server: Enter in browser the following url: https://"host-ip-address":3000 
 
 
