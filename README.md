@@ -5,9 +5,9 @@
 
 0) Install node js
 
-1) Install dependencies for webrtc server when in webRTC folder: Run terminal: npm install express socket.io
+1) Install dependencies for webrtc server when in webRTC folder: Run in terminal: npm install express socket.io
 
-Install mkcert and create certificate for server:
+2) Install mkcert
 
 3) Create mkcert certificate while in the webRTC folder via terminal: mkcert <host ip-address>
 
