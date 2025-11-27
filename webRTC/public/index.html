@@ -117,11 +117,17 @@
 
   <body>
     <div id="room-selection-container" class="centered">
-      <h1>WebRTC Video Conference - Enhanced Debug</h1>
-      <label>Enter the number of the room you want to connect</label>
-      <input id="room-input" type="text" />
-      <button id="connect-button">CONNECT</button>
-    </div>
+  <h1>WebRTC Video Conference - Enhanced Debug</h1>
+  <label>Enter the number of the room you want to connect</label><br>
+  <input id="room-input" type="text" placeholder="Room ID" />
+  <br><br>
+  <label>
+    <input type="checkbox" id="enable-audio-checkbox">
+    Enable Audio
+  </label>
+  <br><br>
+  <button id="connect-button">CONNECT</button>
+</div>
 
     <div id="video-chat-container" class="video-position" style="display: none;">
       <div class="main-content">

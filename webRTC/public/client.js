@@ -9,14 +9,15 @@ const remoteVideoComponent = document.getElementById('remote-video')
 
 // Variables.
 const socket = io()
-const mediaConstraints = {
-  audio: true,
+let mediaConstraints = {
+  audio: false,
   video: {
     width: { ideal: 1920, max: 1920 },
     height: { ideal: 1080, max: 1080 },
     frameRate: { ideal: 30, max: 60 }
   }
-}
+};
+
 let localStream
 let remoteStream
 let isRoomCreator
@@ -60,8 +61,10 @@ let lastTimestamp = 0;
 
 // BUTTON LISTENER ============================================================
 connectButton.addEventListener('click', () => {
-  joinRoom(roomInput.value)
-})
+  const enableAudio = document.getElementById('enable-audio-checkbox').checked;
+  mediaConstraints.audio = enableAudio;
+  joinRoom(roomInput.value);
+});
 
 // SOCKET EVENT CALLBACKS =====================================================
 socket.on('room_created', async () => {
@@ -268,7 +271,16 @@ function setupDataChannelHandlers() {
 function startCustomRTTMeasurement() {
   // Create the data channel once
   function ensurePingChannel() {
+    // Only the offerer (room creator) should create the data channel. The non-offer side will receive it via ondatachannel.
+    if (!isRoomCreator) {
+      // If we already adopted a channel from ondatachannel, reuse it
+      if (pingChannel && pingChannel.readyState === 'open') return pingChannel;
+      return null;
+    }
+
     if (!pingChannel || pingChannel.readyState !== 'open') {
+      // Close any previous channel reference safely
+      try { if (pingChannel) pingChannel.close(); } catch(e) {}
       pingChannel = rtcPeerConnection.createDataChannel('ping');
       pingChannel.onopen = () => {
         console.log('Ping channel opened');
