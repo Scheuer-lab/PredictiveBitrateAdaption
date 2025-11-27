@@ -70,5 +70,5 @@ io.on('connection', (socket) => {
 // START THE SERVER =================================================================
 const port = 3000
 httpsServer.listen(port, () => {
-  console.log(`HTTPS server running at https://192.168.10.248:${port}`)
+  console.log(`HTTPS server running at <host-ip>:${port}`)
 })
